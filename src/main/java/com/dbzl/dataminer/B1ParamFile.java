@@ -3,7 +3,7 @@ package com.dbzl.dataminer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-public class B1ParamFile {
+public class B1ParamFile implements ParamFile{
 /*Type (Magic value) - byte 17-18
 B1 stock usage - byte 149
 Effect size - bytes 49-52
@@ -107,24 +107,6 @@ knockback - 119-120*/
         b1Type_2 = getInt(rawBytes, 103);
     }
 
-    private final int getIntFromBytes(byte[] rawBytes, int startIndex){
-        byte[] bytes = {rawBytes[startIndex], rawBytes[startIndex+1], rawBytes[startIndex+2], rawBytes[startIndex+3]};
-		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getInt();
-    }
-
-    private final int getShortFromSingleByte(byte[] rawBytes, int startIndex){
-        byte[] bytes = {rawBytes[startIndex], 00};
-        return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getShort();
-    }
-
-    private final int getShortFromTwoBytes(byte[] rawBytes, int startIndex){
-        byte[] bytes = {rawBytes[startIndex], rawBytes[startIndex+1]};
-        return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getShort();
-    }
-
-    private final int getInt(byte[] rawBytes, int startIndex){
-        return Integer.valueOf(rawBytes[startIndex]);
-    }
 
     @Override
     public String toString() {

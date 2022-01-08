@@ -15,16 +15,17 @@ public class Dataminer {
         File root = new File(rootDir);
         String generalParamFileName = "017_character_param.dat";
         String b1ParamFileName = "024_character_blast_1_param.dat";
+        String meleeFileName = "018_character_melee_param.dat";
         File [] gameFiles = root.listFiles();
         StringBuilder files = new StringBuilder(10000);
         for(File characterFile : gameFiles){
-            File paramFile = new File(characterFile.getAbsolutePath() + "/" +b1ParamFileName);
+            File paramFile = new File(characterFile.getAbsolutePath() + "/" +meleeFileName);
             System.out.println("opening " + paramFile.getAbsolutePath());
-            B1ParamFile params = new B1ParamFile(Files.readAllBytes(paramFile.getAbsoluteFile().toPath()));
+            MeleeParamFile params = new MeleeParamFile(Files.readAllBytes(paramFile.getAbsoluteFile().toPath()));
             files.append(characterFile.getName()).append('\n').append(params).append("\n'\n");
         }
 
-        Files.write(Paths.get(rootDir, "out-b1.txt"), files.toString().getBytes(StandardCharsets.UTF_8));
+        Files.write(Paths.get(rootDir, "out-melee.txt"), files.toString().getBytes(StandardCharsets.UTF_8));
 
     }
 }

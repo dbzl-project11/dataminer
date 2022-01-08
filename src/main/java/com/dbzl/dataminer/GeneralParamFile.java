@@ -3,7 +3,7 @@ package com.dbzl.dataminer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-public class GeneralParamFile {
+public class GeneralParamFile implements ParamFile{
 
     /*byte 1 = unknown
 byte 2 = ki charge SFX
@@ -66,15 +66,7 @@ bytes 125-128 = damage taken (defense)
         kiCounterKiUsage = getIntFromBytes(rawBytes, 76);
     }
 
-    private final int getIntFromBytes(byte[] rawBytes, int startIndex){
-        byte[] bytes = {rawBytes[startIndex], rawBytes[startIndex+1], rawBytes[startIndex+2], rawBytes[startIndex+3]};
-		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getInt();
-    }
 
-    private final float getDoubleFromBytes(byte[] rawBytes, int startIndex){
-        byte[] bytes = {rawBytes[startIndex], rawBytes[startIndex+1], rawBytes[startIndex+2], rawBytes[startIndex+3]};
-		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getFloat();
-    }
 
     @Override
     public String toString() {

@@ -1,6 +1,12 @@
 package com.dbzl.dataminer;
 
-public class MeleeParamFile {
+import com.dbzl.dataminer.moves.MeleeMove;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class MeleeParamFile implements ParamFile{
 
     /**
      *
@@ -18,9 +24,37 @@ public class MeleeParamFile {
      * Rush Attack 1 (first combo) sound effect - byte 37
      * Rush Attack 1 (first combo) special effect - byte 28
      * Rush Attack 1 (first combo) visual effect - byte 36
+     *
+     *
+     *
      */
 
+    List<MeleeMove> parsedMoves = new ArrayList<>();
+
+    MeleeParamFile(byte[] rawBytes){
+
+        for(int i =0; i < rawBytes.length;i+=48 ){
+            int endIndex = i +48;
+            byte[] subArray = Arrays.copyOfRange(rawBytes, i, endIndex);
+            MeleeMove move = new MeleeMove();
+            move.setHealthDamage(getShortFromTwoBytes(subArray, 4));
+            move.setHealthAbsorbtion(getShortFromTwoBytes(subArray, 12));
+            move.setKiDamage(getShortFromTwoBytes(subArray, 8));
+            move.setKiGain(getShortFromTwoBytes(subArray, 10));
+            move.setKiAbsorbtion(getShortFromTwoBytes(subArray, 14));
+            move.setArmorBreak(getBooleanFromByte(subArray, 44));
+            parsedMoves.add(move);
+        }
 
 
 
+    }
+
+
+    @Override
+    public String toString() {
+        return "MeleeParamFile{" +
+                "parsedMoves=" + parsedMoves +
+                '}';
+    }
 }
